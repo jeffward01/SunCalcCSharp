@@ -1,0 +1,1 @@
+C:\Dev\github\SunCalcCSharp\SunCalc\SunCalc.Console\bin\Debug\SunCalc.Console.exe.config
