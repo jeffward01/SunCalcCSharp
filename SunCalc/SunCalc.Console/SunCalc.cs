@@ -151,7 +151,7 @@ namespace SunCalc.Console
               Math.Sin(meanAnomaly) + 0.02 * Math.Sin(2 * meanAnomaly)));
         }
 
-        public int elipticalLongitude(int meanLongitude, int equationOfCenter)
+        public int eclipticLongitude(int meanLongitude, int equationOfCenter)
         {
             return Convert.ToInt32(CorrectAngle(meanLongitude + equationOfCenter));
         }
@@ -230,8 +230,20 @@ namespace SunCalc.Console
             }
             return Convert.ToInt32(azimuth);
         }
+
+        public int astroRefraction(int alititude)
+        {
+            if (alititude < 0)
+            {
+                alititude = 0;
+            }
+            return Convert.ToInt32(0.0002967/Math.Tan(alititude + 0.00312536/(alititude + 0.08901179)));
+        }
         
-        
+        //TODO: LEft off here
+
+
+
 
 
 
@@ -381,6 +393,22 @@ public static void CalculateSunPosition(DateTime dateTime, double latitude, doub
             }
         }
 
+        private static double CorrectAngle(int angleInRadians)
+        {
+            double angleInRadians1 = Convert.ToDouble(angleInRadians);
+            if (angleInRadians1 < 0)
+            {
+                return 2 * Math.PI - (Math.Abs(angleInRadians1) % (2 * Math.PI));
+            }
+            else if (angleInRadians1 > 2 * Math.PI)
+            {
+                return angleInRadians1 % (2 * Math.PI);
+            }
+            else
+            {
+                return angleInRadians1;
+            }
+        }
 
     }
 }
